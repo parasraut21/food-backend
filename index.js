@@ -333,7 +333,7 @@ const transporter = nodemailer.createTransport({
   secure: false, // true for 465, false for other ports
   auth: {
     user: 'parasraut821@gmail.com',
-    pass: 'qzvvmvkboczsznhe'
+    pass: 'kgqpfvnbcnidople'
   }
 });
 
@@ -489,7 +489,7 @@ app.post('/myorders', async (req, res) => {
 
 
 //get data
-app.get('/orders', async (req, res) => {
+app.post('/orders', async (req, res) => {
   const userEmail = req.body.userEmail
   const sql = 'SELECT * FROM orders WHERE userEmail = ?';
   await  con.query(sql, [userEmail], (err, results) => {
@@ -501,6 +501,23 @@ app.get('/orders', async (req, res) => {
     }
   });
 });
+
+
+app.post('/admin', async (req,res)=>{
+  const userEmail = req.body.userEmail;
+await  con.query(`select * from orders where userEmail='${userEmail}'`,function(err,result,fields){
+      if(err){
+          console.log(err);
+      }else{
+       //res.send(result);
+       var p = JSON.parse(JSON.stringify(result)) // JSON must be capital
+      
+      //  console.log(global.Food_items);
+    //  console.log(r);
+      }
+      res.send(p);
+  })
+})
 
   // Start the express app
 app.listen(5000, () => {
